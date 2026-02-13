@@ -1,0 +1,41 @@
+---
+description: How to create new API endpoints
+globs: "src/api/**/*.py"
+alwaysApply: false
+---
+
+# API Endpoints
+
+## Adding a New Endpoint
+
+1. Create `src/api/endpoints/<domain>.py` with a local `router = APIRouter()`
+2. Create Pydantic schemas in `src/schemas/<domain>.py`
+3. Register the router in `src/api/router.py`:
+
+```python
+from src.api.endpoints import <domain>
+router.include_router(<domain>.router, prefix="/<domain>", tags=["<domain>"])
+```
+
+## Endpoint File Pattern
+
+```python
+from fastapi import APIRouter, Depends
+
+from src.schemas.<domain> import SomeRequest, SomeResponse
+
+router = APIRouter()
+
+
+@router.post("/")
+async def create_something(body: SomeRequest) -> SomeResponse:
+    ...
+```
+
+## Rules
+
+- One `router = APIRouter()` per file
+- Endpoints are async
+- Use Pydantic models for request bodies and responses (return type annotation serves as `response_model`)
+- Delegate business logic to `src/services/` — keep handlers thin
+- Use `Depends()` for shared dependencies

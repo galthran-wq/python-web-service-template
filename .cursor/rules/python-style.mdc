@@ -1,0 +1,32 @@
+---
+description: Python code style rules
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python Code Style
+
+## General
+
+- No comments and no docstrings unless absolutely essential for understanding
+- All functions must have return type annotations
+- All function parameters must have type annotations
+- Line length limit: 120
+- Use `async def` for all endpoint handlers and I/O-bound functions
+- Imports: stdlib → third-party → local (`from src.xxx`), enforced by ruff isort
+
+## Typing
+
+- mypy strict mode is enabled — no `Any` unless unavoidable
+- Use `collections.abc` types (`Sequence`, `Mapping`, `AsyncIterator`) over `typing` equivalents
+- Use built-in generics (`list[str]`, `dict[str, int]`) over `typing.List`, `typing.Dict`
+
+## Error Handling
+
+- Raise `AppError(status_code, detail)` for HTTP errors in services/endpoints
+- Never catch broad `Exception` without re-raising
+
+## Logging
+
+- Use `structlog.get_logger()` — not `logging.getLogger()`
+- Use structured key-value pairs: `logger.info("event_name", key=value)`

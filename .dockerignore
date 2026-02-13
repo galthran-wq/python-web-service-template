@@ -1,0 +1,15 @@
+.venv/
+.env
+.git/
+.github/
+.cursor/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+tests/
+*.md
+Makefile
+.pre-commit-config.yaml
+.gitignore
+.dockerignore

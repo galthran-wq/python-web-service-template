@@ -1,0 +1,38 @@
+---
+description: Testing conventions and patterns
+globs: "tests/**/*.py"
+alwaysApply: false
+---
+
+# Testing
+
+## Setup
+
+- Framework: pytest with pytest-asyncio (`asyncio_mode = "auto"`)
+- HTTP client: httpx `AsyncClient` with `ASGITransport`
+- Shared fixtures live in `tests/conftest.py`
+
+## File Structure
+
+Mirror `src/api/endpoints/` in `tests/api/`:
+- `src/api/endpoints/health.py` → `tests/api/test_health.py`
+
+## Writing Tests
+
+```python
+from httpx import AsyncClient
+
+
+async def test_example(client: AsyncClient) -> None:
+    response = await client.get("/some-endpoint")
+    assert response.status_code == 200
+    assert response.json() == {"key": "value"}
+```
+
+## Rules
+
+- All tests are `async def`
+- Use the `client` fixture from `conftest.py` — do not create clients manually
+- No `__init__.py` in test directories
+- Type-annotate test function signatures
+- Run with `make test`
