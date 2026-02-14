@@ -10,15 +10,15 @@ This is a FastAPI microservice with a layered architecture.
 ## Layout
 
 - `src/` — application package (imported as `from src.xxx import yyy`)
-- `src/main.py` — app factory (`create_app`), structlog config, lifespan events
+- `src/main.py` — app factory (`create_app`), structlog config, lifespan events, Prometheus instrumentation
 - `src/config.py` — pydantic-settings based configuration, singleton `settings` object
 - `src/dependencies.py` — FastAPI dependency injection providers
 - `src/api/router.py` — aggregated API router, includes all endpoint routers
 - `src/api/endpoints/` — thin HTTP handlers, one file per domain
 - `src/schemas/` — Pydantic request/response models, one file per domain
 - `src/services/` — business logic layer, orchestrates data and external calls
-- `src/core/exceptions.py` — custom `AppError` and exception handlers
-- `src/core/middleware.py` — CORS and request logging middleware
+- `src/core/exceptions.py` — custom `AppError`, validation error handler, and exception handlers
+- `src/core/middleware.py` — CORS, request logging, and request ID middleware
 
 ## Conventions
 

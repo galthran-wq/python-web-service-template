@@ -8,3 +8,8 @@ router = APIRouter()
 @router.get("/health")
 async def health_check() -> HealthResponse:
     return HealthResponse(status="ok")
+
+
+@router.get("/ready")
+async def readiness_check() -> HealthResponse:
+    return HealthResponse(status="ok")
