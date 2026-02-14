@@ -7,7 +7,7 @@ run:
 	uv run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 
 test:
-	uv run pytest
+	uv run pytest --cov=src --cov-report=term-missing
 
 lint:
 	uv run ruff check src tests

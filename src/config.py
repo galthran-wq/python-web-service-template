@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     port: int = 8000
     log_level: str = "info"
     cors_origins: list[str] = ["*"]
+    metrics_enabled: bool = True
 
 
 settings = Settings()
